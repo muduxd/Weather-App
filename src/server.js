@@ -21,10 +21,14 @@ app.get("/", (request, response) => response.render("main"));
 app.get("/weather", async (request, response) => {
   if (!request.query.address) return response.send({ error: "Please provide an address!" });
 
-  const { latitude, longitude, location } = await geocode(request.query.address);
-  const weather = await forecast({ latitude, longitude });
+  try {
+    const { latitude, longitude, location } = await geocode(request.query.address);
+    const weather = await forecast({ latitude, longitude });
 
-  response.send({ weather, location });
+    return response.send({ weather, location });
+  } catch (error) {
+    return response.send({ error: "Unable to find location" });
+  }
 });
 
 app.get("*", (request, response) => response.render("404"));

@@ -1,9 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+
 *,
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -16,33 +16,104 @@ body {
 h1 {
   font-family: "Inter", sans-serif;
   margin: 50px;
+  font-size: 30px;
 }
 
 p {
+  font-size: 24px;
   margin: 20px 0px;
 }
 
-.input-style {
-  border: 0;
-  padding: 7px 0;
-  border-bottom: 1px solid #ccc;
+form {
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
 }
 
-.input-style ~ .focus-border {
+/*INPUT*/
+
+input[type="text"] {
+  font-family: "Inter", sans-serif;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box;
+  letter-spacing: 1px;
+}
+
+:focus {
+  outline: none;
+}
+
+.wrap {
+  float: left;
+  min-width: 15%;
+  position: relative;
+  margin: 10px;
+}
+
+.input-effect {
+  border: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.input-effect ~ .focus-border {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #4caf50;
+  background-color: black;
   transition: 0.4s;
 }
-
-.input-style:focus ~ .focus-border {
+.input-effect:focus ~ .focus-border {
   width: 100%;
   transition: 0.4s;
 }
 
-:focus {
-  outline: none;
+/*SEARCH BUTTON*/
+
+#search-button {
+  min-width: 70px;
+  max-height: 40px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+  background-color: black;
+  color: white;
+  border: 1.5px solid black;
+  padding: 0.5rem;
+  margin: 0px 50px;
+  text-align: center;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+#search-button:hover {
+  background: #fff;
+  box-shadow: 0px 2px 10px 5px #97b1bf;
+  color: #000;
+}
+
+#search-button:after {
+  content: "";
+  background: black;
+  color: white;
+  display: block;
+  position: absolute;
+  opacity: 0;
+  transition: all 0.8s;
+}
+
+#search-button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s;
 }

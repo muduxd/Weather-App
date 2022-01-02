@@ -1,24 +1,20 @@
-const request = require("request");
+const request = require("request-promise");
 require("dotenv").config();
 
 const geocode = async (address) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${process.env.GEOCODE_KEY}&limit=1`;
 
-  return new Promise((resolve, reject) => {
-    request({ url, json: true }, (error, { body }) => {
-      if (error) reject("Unable to connect to location service");
-      else if (body.features.length === 0) reject("Unable to find location");
-      else {
-        const data = body.features[0];
+  try {
+    const data = await request({ url, json: true });
 
-        const latitude = data.center[1];
-        const longitude = data.center[0];
-        const location = data.place_name;
+    const latitude = data.features[0].center[1];
+    const longitude = data.features[0].center[0];
+    const location = data.features[0].place_name;
 
-        resolve({ latitude, longitude, location });
-      }
-    });
-  });
+    return { latitude, longitude, location };
+  } catch (error) {
+    return { error: "Error" };
+  }
 };
 
 module.exports = geocode;
